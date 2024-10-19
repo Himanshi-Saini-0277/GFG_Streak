@@ -10,12 +10,9 @@ class Solution {
   public:
     int getSingle(vector<int>& arr) {
         // code here
-        int XORsum = 0;
-        for(auto it : arr)
-        {
-            XORsum ^= it;
-        }
-        return XORsum;
+        int ans=0;
+        for(auto &b: arr){ans^=b;}
+        return ans;
     }
 };
 
