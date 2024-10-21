@@ -117,29 +117,46 @@ struct Node
 
 // This function should return head to the DLL
 class Solution {
-  public:
-    void inorder(Node* root,vector<int>&ans){
-        if(root==NULL)return;
-        
-        inorder(root->left,ans);
-        ans.push_back(root->data);
-        inorder(root->right,ans);
-    }
+  Node* help(Node * root, int dir){
+      auto node = new Node(root->data);
+      
+      if(!root->left && !root->right){
+        node->data = root->data;
+        return node;
+      }
+      
+      if(root->left){
+        auto leftNode = help(root->left, 0);
+        leftNode->right = node;
+        node->left = leftNode;
+      }
+      
+      if(root->right){
+        auto rightNode = help(root->right, 1);
+        node->right = rightNode;
+        rightNode->left = node;
+        node = node->right;
+      }
+      
+      if(dir==0){
+        while(node->right!=NULL){
+            node = node->right;
+        }
+        return node;
+      }else{
+        while(node->left!=NULL){
+            node = node->left;
+        }
+        return node;
+      }
+      
+  }
   
+  public:
     Node* bToDLL(Node* root) {
         // code here
-        vector<int>ans;
-        inorder(root,ans);
-        Node* head=new Node(ans[0]);
-        Node* t=head;
-        
-        for(int i=1;i<ans.size();i++){
-            Node* n = new Node(ans[i]);
-            t->right=n;
-            n->left=t;
-            t=t->right;
-        }
-        return head;
+        auto newNode = help(root, 1);
+        return newNode;
     }
 };
 
