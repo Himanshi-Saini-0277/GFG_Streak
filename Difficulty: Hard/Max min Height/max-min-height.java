@@ -1,41 +1,51 @@
 class Solution {
-    public int maxMinHeight(int[] arr, int k, int w) {
-        // code here
+    public static boolean isPossible(int[] arr, int n, int k, int w, int target) {
+        int[] diff = new int[n + 1];
+        long used = 0;
+        int add = 0;
+
+        for (int i = 0; i < n; i++) {
+            add += diff[i];
+            int currHeight = arr[i] + add;
+
+            if (currHeight < target) {
+                int need = target - currHeight;
+                used += need;
+                if (used > k) return false;
+
+                add += need;
+                if (i + w < n) {
+                    diff[i + w] -= need;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public static int maxMinHeight(int[] arr, int k, int w) {
         int n = arr.length;
-        int low = Arrays.stream(arr).min().getAsInt();
-        int high = low + k;
-        int result = low;
-        
-        while(low <= high){
+        int low = Integer.MAX_VALUE;
+        int high = 0;
+
+        for (int height : arr) {
+            low = Math.min(low, height);
+            high = Math.max(high, height);
+        }
+
+        high += k;
+        int answer = low;
+
+        while (low <= high) {
             int mid = (low + high) / 2;
-            if(canAchieve(arr, k, w, mid)){
-                result = mid;
+            if (isPossible(arr, n, k, w, mid)) {
+                answer = mid;
                 low = mid + 1;
-            }else{
+            } else {
                 high = mid - 1;
             }
         }
-        
-        return result;
-    }
-    
-    private boolean canAchieve(int[] arr, int k, int w, int target){
-        int n = arr.length;
-        int[] water = new int[n + 1];
-        int ops = 0, currWater = 0;
-        
-        for(int i=0; i<n; i++){
-            currWater += water[i];
-            int height = arr[i] + currWater;
-            if(height < target){
-                int need = target - height;
-                ops += need;
-                if(ops > k) return false;
-                currWater += need;
-                if(i + w < n) water[i + w] -= need;
-            }
-        }
-        
-        return true;
+
+        return answer;
     }
 }
