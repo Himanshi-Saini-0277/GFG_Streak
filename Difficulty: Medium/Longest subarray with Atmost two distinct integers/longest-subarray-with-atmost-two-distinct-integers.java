@@ -1,21 +1,25 @@
 class Solution {
     public int totalElements(int[] arr) {
         // code here
-        int n=arr.length;
-        int start=0;
-        int maxLength=0;
-        Map<Integer,Integer> map=new HashMap<>();
-        for(int i=0;i<n;i++){
-            map.put(arr[i],map.getOrDefault(arr[i],0)+1);
-            while(map.size()>2){
-                map.put(arr[start],map.get(arr[start])-1);
-                if(map.get(arr[start])==0){
-                    map.remove(arr[start]);
-                }
-                start++;
-            }
-            maxLength=Math.max(maxLength,i-start+1);
+        int c=0,j=0;
+         
+        HashMap<Integer,Integer> mp=new HashMap<>();
+        
+        for(int i=0;i<arr.length;i++)
+        {
+              mp.put(arr[i],mp.getOrDefault(arr[i],0)+1);
+              if(mp.size()>2)
+              {
+                  mp.put(arr[j],mp.get(arr[j])-1);
+                   if(mp.get(arr[j])==0)
+                   {
+                       mp.remove(arr[j]);
+                   }
+                   j++;
+              }
+            c=Math.max(c,i-j+1);
         }
-        return maxLength;
+        
+        return c;
     }
 }
