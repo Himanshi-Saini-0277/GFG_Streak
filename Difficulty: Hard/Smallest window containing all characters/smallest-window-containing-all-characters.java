@@ -1,52 +1,43 @@
 class Solution {
-    public static String smallestWindow(String s, String p) {
-        // code here
-        if (s.length() < p.length()) return "";
-
-       
-        int[] freqP = new int[26];
+    public String minWindow(String s, String p) {
+        if (p.length() > s.length()) return "";
+        
+        int[] freq = new int[26];
+        
         for (char c : p.toCharArray()) {
-            freqP[c - 'a']++;
+            freq[c - 'a']++;
         }
-
-        int[] freqS = new int[26];
-        int start = 0, minLen = Integer.MAX_VALUE, startIndex = -1;
-        int count = 0; 
-
-        for (int end = 0; end < s.length(); end++) {
-            char c = s.charAt(end);
-            freqS[c - 'a']++;
-
+        
+        int left = 0;
+        int count = p.length();
+        int minLen = Integer.MAX_VALUE;
+        int start = 0;
+        
+        for (int right = 0; right < s.length(); right++) {
             
-            if (freqP[c - 'a'] > 0 && freqS[c - 'a'] <= freqP[c - 'a']) {
-                count++;
+            if (freq[s.charAt(right) - 'a'] > 0) {
+                count--;
             }
-
             
-            while (count == p.length()) {
-               
-                if (end - start + 1 < minLen) {
-                    minLen = end - start + 1;
-                    startIndex = start;
-                }
-
+            freq[s.charAt(right) - 'a']--;
+            
+            while (count == 0) {
                 
-                char leftChar = s.charAt(start);
-                freqS[leftChar - 'a']--;
-                if (freqP[leftChar - 'a'] > 0 && freqS[leftChar - 'a'] < freqP[leftChar - 'a']) {
-                    count--;
+                if (right - left + 1 < minLen) {
+                    minLen = right - left + 1;
+                    start = left;
                 }
-                start++;
+                
+                freq[s.charAt(left) - 'a']++;
+                
+                if (freq[s.charAt(left) - 'a'] > 0) {
+                    count++;
+                }
+                
+                left++;
             }
         }
-
-        if (startIndex == -1) return "";
-        return s.substring(startIndex, startIndex + minLen);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(smallestWindow("timetopractice", "toc")); 
-        System.out.println(smallestWindow("zoomlazapzo", "oza"));    
-        System.out.println(smallestWindow("zoom", "zooe")); 
+        
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(start, start + minLen);
     }
 }
