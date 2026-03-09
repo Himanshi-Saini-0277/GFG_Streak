@@ -7,4 +7,4 @@
 <strong>Output: </strong>"333"
 <strong>Explanation: </strong>Performing any swaps gives the same result i.e "333".
 </span></pre>
-<p><span style="font-size: 14pt;"><strong style="font-size: 14pt;">Constraints:</strong><br><span style="font-size: 14pt;">1 ≤ |s| ≤ 10<sup>5</sup><br>'0'&nbsp;</span></span><span style="font-size: 18.6667px;">≤ s[i]&nbsp;≤ '9'</span></p></div><br><p><span style=font-size:18px><strong>Topic Tags : </strong><br><code>Strings</code>&nbsp;<code>Data Structures</code>&nbsp;<code>Greedy</code>&nbsp;
+<p><span style="font-size: 14pt;"><strong style="font-size: 14pt;">Constraints:</strong><br><span style="font-size: 14pt;">1 ≤ |s| ≤ 10<sup>5</sup><br>'0'&nbsp;</span></span><span style="font-size: 18.6667px;">≤ s[i]&nbsp;≤ '9'</span></p></div><p><span style=font-size:18px><strong>Company Tags : </strong><br><code>NPCI</code>&nbsp;<br><p><span style=font-size:18px><strong>Topic Tags : </strong><br><code>Strings</code>&nbsp;<code>Data Structures</code>&nbsp;<code>Greedy</code>&nbsp;
