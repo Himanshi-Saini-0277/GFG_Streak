@@ -9,78 +9,64 @@ class Node {
         left = null;
         right = null;
     }
-}  */
+}
+*/
+
 class Solution {
-    public static int minTime(Node root, int target) {
-        // code here
-        Queue<Node> que=new LinkedList<>();
-        que.add(root);
-        Node start=null;
-        HashMap<Node,ArrayList<Node>> map=new HashMap<>();
-        while(que.size()>0){
-           Node temp=que.poll();
-           if(temp.data==target) start=temp;
-           if(temp.left!=null){
-               que.add(temp.left);
-               if(map.get(temp)!=null){
-                   map.get(temp).add(temp.left);
-                   
-               }
-               else{
-                   map.put(temp,new ArrayList<>());
-                   map.get(temp).add(temp.left);
-               }
-               
-                if(map.get(temp.left)!=null){
-                   map.get(temp.left).add(temp);
-                   
-               }
-               else{
-                    map.put(temp.left,new ArrayList<>());
-                   map.get(temp.left).add(temp);
-               }
-           }
-           if(temp.right!=null){
-               que.add(temp.right);
-               if(map.get(temp)!=null){
-                   map.get(temp).add(temp.right);
-                   
-               }
-               else{
-                   map.put(temp,new ArrayList<>());
-                   map.get(temp).add(temp.right);
-               }
-               
-                if(map.get(temp.right)!=null){
-                   map.get(temp.right).add(temp);
-                   
-               }
-               else{
-                    map.put(temp.right,new ArrayList<>());
-                   map.get(temp.right).add(temp);
-               }
-           }
+    HashMap<Node, Node> map;
+    Node startNode;
+
+    public void dfs(Node node, Node parent, int start) {
+        if(node == null) return;
+
+        if(node.data == start) startNode = node;
+
+        map.put(node, parent);
+
+        dfs(node.left, node, start);
+        dfs(node.right, node, start);
+
+    }
+    
+    public int minTime(Node root, int start) {
+        map = new HashMap<>();
+        startNode = null;
+
+        dfs(root, null, start);
+
+        Queue<Node> q = new LinkedList<>();
+        HashSet<Node> visited = new HashSet<>();
+
+        q.add(startNode);
+        visited.add(startNode);
+
+        int time = 0;
+
+        while(!q.isEmpty()) {
+            int size = q.size();
+
+            for(int i = 0; i < size; i++) {
+                Node curr = q.remove();
+
+                if(curr.left != null && visited.add(curr.left)) {
+                    q.add(curr.left);
+                }
+
+                if(curr.right != null && visited.add(curr.right)) {
+                    q.add(curr.right);
+                }
+
+                Node parentNode = map.get(curr);
+
+                if(parentNode != null && visited.add(parentNode)) {
+                    q.add(parentNode);
+                }
+            }
+
+            time++;
+
         }
-        start.data=0;
-        que.add(start);
-        int max=0;
-        
-       HashMap<Node,Integer> vis=new HashMap<>();
-        while(que.size()>0){
-            
-           Node temp=que.poll();
-           if(max<temp.data) max=temp.data;
-           if(map.get(temp)!=null){
-               vis.put(temp,1);
-           for(Node i:map.get(temp)){
-               if(vis.get(i)==null){
-                   vis.put(i,1);
-                   i.data=temp.data+1;
-                   que.add(i);
-               }
-           }}
-            
-        }
-        return max;
+
+        return time - 1;
     }
 }
