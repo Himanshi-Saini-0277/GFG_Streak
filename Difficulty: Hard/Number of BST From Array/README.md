@@ -6,4 +6,4 @@
 <pre><span style="font-size: 18px;"><strong>Input: </strong>arr[] = [2, 1]
 <strong>Ouput: </strong>[1, 1]</span>
 </pre>
-<p><span style="font-size: 18px;"><strong>Constraints:</strong><br>1 ≤ arr.size() ≤ 6<br>1 ≤ arr[i] ≤ 15</span></p></div><br><p><span style=font-size:18px><strong>Topic Tags : </strong><br><code>Binary Search Tree</code>&nbsp;<code>Mathematical</code>&nbsp;<code>Algorithms</code>&nbsp;
+<p><span style="font-size: 18px;"><strong>Constraints:</strong><br>1 ≤ arr.size() ≤ 6<br>1 ≤ arr[i] ≤ 15</span></p></div><p><span style=font-size:18px><strong>Company Tags : </strong><br><code>NPCI</code>&nbsp;<br><p><span style=font-size:18px><strong>Topic Tags : </strong><br><code>Binary Search Tree</code>&nbsp;<code>Mathematical</code>&nbsp;<code>Algorithms</code>&nbsp;
